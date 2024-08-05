@@ -1,0 +1,60 @@
+{% extends "main.html" %} {% block content %}
+<div class="room-container">
+	<div class="wrapper-room">
+		<h2 class="room-title">{{room.name}}.</h2>
+		<p class="room-description">{{room.description}}</p>
+
+		<article class="comment-wrapper">
+			{% if length_messages >= 1 %}
+			<h3 class="message-title">Discutions</h3>
+			{% else %}
+			<h3 class="message-title">No discutions in this room</h3>
+			{% endif %}
+			<div class="feed-messages">
+				{% for message in room_messages %}
+				<div class="user-message">
+					<div class="feed-messages-header">
+						<div class="messages-header-item">
+							<a class="user-name" href="">@{{message.user}}</a>
+							&bullet;
+							<small>{{message.created|timesince}} ago</small>
+						</div>
+						{% if request.user == message.user %}
+						<a class="btn-delete" href="{% url 'delete-message' message.id %}"
+							>Delete</a
+						>
+						{% endif %}
+					</div>
+					<p>{{message.body}}</p>
+				</div>
+				{% endfor %}
+			</div>
+			{% if request.user.is_authenticated %}
+			<div class="comment-form">
+				<form action="" method="POST">
+					{% csrf_token %}
+					<textarea
+						type="text"
+						name="body"
+						placeholder="Write your message there..."
+					></textarea>
+					<button type="submit">Submint</button>
+				</form>
+			</div>
+			{% else %}
+			<h4 class="message-title">Login to join ours community</h4>
+			{% endif %}
+		</article>
+		<!-- aside -->
+	</div>
+	<!-- right bar for room message -->
+	<aside>
+		<h3>Participants</h3>
+		{% for user in participants %}
+		<div class="wrapper-users">
+			<p>@{{user.username}}</p>
+		</div>
+		{% endfor %}
+	</aside>
+</div>
+{% endblock content %}

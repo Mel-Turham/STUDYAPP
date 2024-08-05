@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>STUDYDEV</title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="{% static 'styles/main.css' %}"/>
+      -->
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+</head>
+<body>
+<main>
+    {% include "navbar.html" %} {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{message.tags}}" {% endif %}>
+            {{message}}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %} {% block content %} {% endblock content %}
+</main>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<h3 class="activity-title">Recent activity</h3>
+{% for message in room_messages %}
+<div class="message">
+	<small>
+		<a class="user-name" href="{% url 'user_profile' message.user.id %}">
+			@{{message.user}}
+		</a>
+		<span class="created-time">{{message.created|timesince}}</span>
+	</small>
+	<a class="message-room" href="{% url 'room' message.user.id %}">replied to {{message.room}}</a>
+	<p>{{message | truncatewords:6}}</p>
+</div>
+{% endfor %}

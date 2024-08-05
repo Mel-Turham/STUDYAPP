@@ -1,0 +1,23 @@
+{% for room in rooms %}
+<div class="feed-item">
+	<div class="feed-item-header">
+		<a class="user-name" href="{% url 'user_profile' room.host.id %}"
+			>@{{room.host.username}}
+		</a>
+		&bullet;
+		<p>A publier il y'a {{room.created|timesince}} ago</p>
+	</div>
+	<div class="feed-item-body">
+		<h5>
+			<a href="{% url 'room' room.id  %}">{{room.name}}</a>
+		</h5>
+		<p>{{room.description | truncatewords:50}}</p>
+	</div>
+	<div class="feed-item-footer">
+		<div>
+			<span>{{room.participants.all.count}} joined</span>
+		</div>
+		<small>{{room.topic.name}}</small>
+	</div>
+</div>
+{% endfor %}

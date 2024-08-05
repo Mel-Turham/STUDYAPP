@@ -1,0 +1,28 @@
+{% extends "main.html" %} {% block content %}
+
+<div class="home-container">
+	<div class="sidebar">{% include 'base/topics_component.html' %}</div>
+
+	<div class="main">
+		<div class="main-header">
+			<div>
+				<h3 class="title-main">
+					study room
+				</h3>
+        <span>{{room_count}}, {% if room_count > 1 %} Rooms available {% else %} Room
+				available {% endif %} </span>
+			</div>
+			
+			<a class="btn-create" href="{% url 'create-room'  %}">Create<span>+</span></a>
+		</div>
+		{% if room_count == 0 %}
+		<h4 class="not-found">Room not found...</h4>
+		{% else %}
+		<div class="feed">{% include 'base/feed_component.html' %}</div>
+		{% endif %}
+	</div>
+
+	<aside class="activity">{% include 'base/activity_component.html' %}</aside>
+</div>
+
+{% endblock content %}
